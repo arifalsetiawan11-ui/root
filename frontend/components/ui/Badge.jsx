@@ -29,7 +29,7 @@ export function Badge({
       height: "h-5",
       icon: "h-3.5 w-3.5",
       text: "text-xs",
-      padding: "px-2",
+      padding: "px-1.5",
       gap: "gap-1",
     },
     sm: {
@@ -253,7 +253,7 @@ export function BadgeIcon({
     xs: "h-5 w-5",
     sm: "h-6 w-6",
     md: "h-7 w-7",
-    lg: "h-9 w-9",
+    lg: "h-8 w-8",
   };
 
   const iconSize = sizes[size] || sizes.sm;
