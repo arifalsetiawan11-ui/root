@@ -56,9 +56,9 @@ export function Badge({
     },
     xl: {
       height: "h-8",
-      icon: "h-8 w-8",
+      icon: "h-7 w-7",
       text: "text-sm",
-      padding: "px-0",
+      padding: "px-0.5",
       gap: "gap-0",
     },
   };

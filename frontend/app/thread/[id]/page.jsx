@@ -109,7 +109,7 @@ export default function ThreadDetailPage() {
                   <Link href={`/user/${encodeURIComponent(data.user.username)}`} className="font-medium text-[rgb(var(--fg))] hover:underline">
                     {data.user.username}
                   </Link>
-                  {data.user.primary_badge && <Badge badge={data.user.primary_badge} size="sm" />}
+                  {data.user.primary_badge && <Badge badge={data.user.primary_badge} size="xl" showName={false} noBorder={true} />}
                 </span>
               )}
             </div>

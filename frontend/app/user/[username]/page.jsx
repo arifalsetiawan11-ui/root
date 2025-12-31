@@ -54,7 +54,7 @@ export default function UserProfilePage() {
             <h1 className="text-xl font-semibold text-[rgb(var(--fg))] truncate">
               {profile.full_name || profile.username || "(No Name)"}
             </h1>
-            {profile.primary_badge && <Badge badge={profile.primary_badge} size="sm" />}
+            {profile.primary_badge && <Badge badge={profile.primary_badge} size="xl" showName={false} noBorder={true} />}
           </div>
           
           {/* Username */}
