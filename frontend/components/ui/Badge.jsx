@@ -79,7 +79,7 @@ export function Badge({
       `}
       style={{
         backgroundColor: noBorder ? "transparent" : `${badgeColor}15`,
-        borderColor: `${badgeColor}40`,
+        ...(noBorder ? {} : { borderColor: `${badgeColor}40` }),
         color: badgeColor,
       }}
       title={badge.description || badge.name}
