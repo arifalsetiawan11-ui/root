@@ -261,7 +261,7 @@ export default function AdminUsersPage() {
                         {/* Primary badge indicator */}
                         {user.primary_badge && (
                           <span
-                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs"
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium"
                             style={{
                               backgroundColor:
                                 (user.primary_badge.color || "#6366f1") + "20",
@@ -272,7 +272,7 @@ export default function AdminUsersPage() {
                               <img
                                 src={user.primary_badge.icon_url}
                                 alt=""
-                                className="w-3 h-3"
+                                className="w-4 h-4 object-contain"
                               />
                             )}
                             {user.primary_badge.name}
@@ -285,24 +285,24 @@ export default function AdminUsersPage() {
 
                       {/* All badges */}
                       {userBadges.length > 0 && (
-                        <div className="mt-2 flex flex-wrap gap-1">
+                        <div className="mt-2 flex flex-wrap gap-2">
                           {userBadges.map((badge) => (
                             <span
                               key={badge.ID || badge.id}
-                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs bg-[rgb(var(--surface-2))] text-[rgb(var(--muted))]"
+                              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-[rgb(var(--surface-2))] text-[rgb(var(--muted))] border border-[rgb(var(--border))]"
                             >
                               {badge.icon_url && (
                                 <img
                                   src={badge.icon_url}
                                   alt=""
-                                  className="w-3 h-3"
+                                  className="w-4 h-4 object-contain"
                                 />
                               )}
                               {badge.name}
                               <button
                                 type="button"
                                 onClick={() => handleRevoke(user, badge)}
-                                className="ml-1 text-[rgb(var(--error))] hover:opacity-80"
+                                className="ml-0.5 text-[rgb(var(--error))] hover:opacity-80"
                                 title="Cabut badge"
                               >
                                 ×

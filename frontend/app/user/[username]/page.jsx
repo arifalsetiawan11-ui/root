@@ -129,11 +129,11 @@ export default function UserProfilePage() {
       {/* Badges section - compact inline */}
       {badges.length > 0 && (
         <div className="py-4 border-t border-[rgb(var(--border))]">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-medium uppercase tracking-wide text-[rgb(var(--muted))]">Badges</span>
-            <div className="flex flex-wrap gap-2">
+          <div className="flex items-start gap-4">
+            <span className="text-xs font-medium uppercase tracking-wide text-[rgb(var(--muted))] pt-2">Badges</span>
+            <div className="flex-1 flex flex-wrap gap-2">
               {badges.map(b => (
-                <BadgeChip key={b.id} badge={b} />
+                <BadgeChip key={b.id} badge={b} size="md" />
               ))}
             </div>
           </div>

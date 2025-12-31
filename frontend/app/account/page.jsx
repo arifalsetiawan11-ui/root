@@ -252,7 +252,7 @@ export default function AccountPage() {
                 <>
                   <div className="flex flex-wrap gap-2">
                     {badges.map((badge) => (
-                      <BadgeChip key={badge.id} badge={badge} />
+                      <BadgeChip key={badge.id} badge={badge} size="md" />
                     ))}
                   </div>
                   <div className="mt-4">

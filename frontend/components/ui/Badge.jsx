@@ -25,37 +25,37 @@ export function Badge({
 
   // Ukuran yang proporsional untuk inline display
   const sizes = {
-    xs:  {
-      height: "h-[18px]",
-      icon: "h-3 w-3",
-      text: "text-[11px]",
-      padding: "px-1.5",
-      gap: "gap-1",
-    },
-    sm: {
+    xs: {
       height: "h-5",
       icon: "h-3.5 w-3.5",
       text: "text-xs",
-      padding: "px-[6px]",
+      padding: "px-2",
       gap: "gap-1",
     },
-    md: {
+    sm: {
       height: "h-6",
       icon: "h-4 w-4",
       text: "text-xs",
       padding: "px-2",
-      gap: "gap-1. 5",
+      gap: "gap-1.5",
     },
-    lg: {
+    md: {
       height: "h-7",
       icon: "h-[18px] w-[18px]",
       text: "text-sm",
       padding: "px-2.5",
-      gap: "gap-1. 5",
+      gap: "gap-1.5",
+    },
+    lg: {
+      height: "h-8",
+      icon: "h-5 w-5",
+      text: "text-sm",
+      padding: "px-3",
+      gap: "gap-2",
     },
   };
 
-  const s = sizes[size] || sizes. sm;
+  const s = sizes[size] || sizes.sm;
 
   return (
     <span
@@ -108,26 +108,26 @@ export function BadgeChip({
 
   const sizes = {
     sm: {
-      icon: "h-3.5 w-3.5",
-      padding: "px-2 py-1",
-      text: "text-xs",
-      gap: "gap-1",
-    },
-    md: {
       icon: "h-4 w-4",
       padding: "px-2.5 py-1.5",
       text: "text-xs",
       gap: "gap-1.5",
     },
-    lg: {
-      icon:  "h-5 w-5",
+    md: {
+      icon: "h-[18px] w-[18px]",
       padding: "px-3 py-2",
+      text: "text-sm",
+      gap: "gap-2",
+    },
+    lg: {
+      icon: "h-5 w-5",
+      padding: "px-3.5 py-2.5",
       text: "text-sm",
       gap: "gap-2",
     },
   };
 
-  const s = sizes[size] || sizes. md;
+  const s = sizes[size] || sizes.md;
 
   return (
     <span
@@ -150,7 +150,7 @@ export function BadgeChip({
     >
       {badge.icon_url && (
         <img
-          src={badge. icon_url}
+          src={badge.icon_url}
           alt=""
           className={`${s.icon} object-contain flex-shrink-0`}
           loading="lazy"
@@ -161,7 +161,7 @@ export function BadgeChip({
         <button
           type="button"
           onClick={(e) => {
-            e. stopPropagation();
+            e.stopPropagation();
             onRemove();
           }}
           className="ml-0.5 rounded hover:bg-black/10 p-0.5 -mr-1 transition-colors"
@@ -250,20 +250,20 @@ export function BadgeIcon({
   if (!badge) return null;
 
   const sizes = {
-    xs: "h-4 w-4",
-    sm: "h-5 w-5",
-    md: "h-6 w-6",
-    lg: "h-8 w-8",
+    xs: "h-5 w-5",
+    sm: "h-6 w-6",
+    md: "h-7 w-7",
+    lg: "h-9 w-9",
   };
 
-  const iconSize = sizes[size] || sizes. sm;
+  const iconSize = sizes[size] || sizes.sm;
 
   return (
     <span
       className={`inline-flex items-center justify-center ${className}`}
       title={badge.name}
     >
-      {badge.icon_url ?  (
+      {badge.icon_url ? (
         <img
           src={badge.icon_url}
           alt={badge.name}

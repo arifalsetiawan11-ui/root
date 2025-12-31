@@ -214,17 +214,17 @@ export default function AdminBadgesPage() {
             <Card key={badge.ID} className="p-4">
               <div className="flex items-start gap-3">
                 <div
-                  className="w-12 h-12 rounded-lg flex items-center justify-center text-2xl"
+                  className="w-14 h-14 rounded-lg flex items-center justify-center flex-shrink-0"
                   style={{ backgroundColor: badge.color + "20" }}
                 >
                   {badge.icon_url ? (
                     <img
                       src={badge.icon_url}
                       alt={badge.name}
-                      className="w-8 h-8 object-contain"
+                      className="w-10 h-10 object-contain"
                     />
                   ) : (
-                    "🏆"
+                    <span className="text-3xl">🏆</span>
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -349,26 +349,27 @@ export default function AdminBadgesPage() {
 
           {/* Preview */}
           <div className="rounded-md bg-[rgb(var(--surface-2))] p-4">
-            <p className="text-xs text-[rgb(var(--muted))] mb-2">Preview:</p>
-            <div className="flex items-center gap-2">
+            <p className="text-xs text-[rgb(var(--muted))] mb-3">Preview:</p>
+            <div className="flex items-center gap-3">
               {iconLoading ? (
-                <div className="w-8 h-8 animate-pulse bg-[rgb(var(--border))] rounded"></div>
+                <div className="w-10 h-10 animate-pulse bg-[rgb(var(--border))] rounded"></div>
               ) : formData.icon_url && iconValid ? (
                 <img
                   src={formData.icon_url}
                   alt="Preview"
-                  className="w-8 h-8 object-contain"
+                  className="w-10 h-10 object-contain"
                 />
               ) : (
-                <div className="w-8 h-8 rounded bg-[rgb(var(--border))] flex items-center justify-center text-xs text-[rgb(var(--muted))]">
+                <div className="w-10 h-10 rounded bg-[rgb(var(--border))] flex items-center justify-center text-sm text-[rgb(var(--muted))]">
                   ?
                 </div>
               )}
               <span 
-                className="font-medium px-2 py-1 rounded"
+                className="inline-flex items-center gap-2 font-medium px-3 py-1.5 rounded-full text-sm"
                 style={{ 
                   backgroundColor: formData.color + "20",
-                  color: formData.color 
+                  color: formData.color,
+                  border: `1px solid ${formData.color}40`
                 }}
               >
                 {formData.name || "Badge Name"}
