@@ -53,7 +53,7 @@ export default async function LatestThreads() {
               <div className="mt-2 flex items-center gap-2 text-xs text-[rgb(var(--muted))]">
                 <span className="inline-flex items-center gap-1.5 font-medium text-[rgb(var(--fg))]">
                   {th.username || "Anonim"}
-                  {th.primary_badge && <Badge badge={th.primary_badge} size="xs" showName={false} />}
+                  {th.primary_badge && <Badge badge={th.primary_badge} size="xl" showName={false} noBorder={true} />}
                 </span>
                 <span>•</span>
                 <span>{formatDate(th.created_at)}</span>

@@ -17,6 +17,7 @@ export function Badge({
   badge,
   size = "sm",
   showName = true,
+  noBorder = false,
   className = "",
 }) {
   if (!badge) return null;
@@ -53,6 +54,13 @@ export function Badge({
       padding: "px-3",
       gap: "gap-2",
     },
+    xl: {
+      height: "h-8",
+      icon: "h-8 w-8",
+      text: "text-sm",
+      padding: "px-0",
+      gap: "gap-0",
+    },
   };
 
   const s = sizes[size] || sizes.sm;
@@ -64,13 +72,13 @@ export function Badge({
         ${s.height} ${s.padding} ${s.gap}
         rounded-full
         font-medium leading-none
-        border
+        ${noBorder ? "" : "border"}
         select-none
         ${s.text}
         ${className}
       `}
       style={{
-        backgroundColor: `${badgeColor}15`,
+        backgroundColor: noBorder ? "transparent" : `${badgeColor}15`,
         borderColor: `${badgeColor}40`,
         color: badgeColor,
       }}
