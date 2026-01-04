@@ -24,14 +24,25 @@ export function useApi(endpoint, options = {}) {
   // This allows us to always access the latest options without causing re-renders
   const optionsRef = useRef(options);
   optionsRef.current = options;
+  
+  // Store abort controller for manual refetch cancellation
+  const abortControllerRef = useRef(null);
 
   const fetchData = useCallback(async (signal) => {
     const opts = optionsRef.current;
     const token = getToken();
     
+    // Check if request was already aborted before proceeding
+    if (signal?.aborted) {
+      return;
+    }
+    
     if (!token && opts.requireAuth !== false) {
-      setError("Unauthorized");
-      setLoading(false);
+      // Only set state if not aborted
+      if (!signal?.aborted) {
+        setError("Unauthorized");
+        setLoading(false);
+      }
       return;
     }
 
@@ -55,16 +66,25 @@ export function useApi(endpoint, options = {}) {
       }
 
       const result = await res.json();
-      setData(result);
+      // Check if aborted before setting state
+      if (!signal?.aborted) {
+        setData(result);
+      }
     } catch (err) {
       // Don't set error if request was aborted (component unmounted or deps changed)
       if (err.name === 'AbortError') {
         return;
       }
       logger.error(`API Error [${endpoint}]:`, err.message);
-      setError(err.message);
+      // Only set error state if not aborted
+      if (!signal?.aborted) {
+        setError(err.message);
+      }
     } finally {
-      setLoading(false);
+      // Only update loading state if not aborted
+      if (!signal?.aborted) {
+        setLoading(false);
+      }
     }
   }, [endpoint]); // Only endpoint as dependency - options accessed via ref
 
@@ -72,6 +92,7 @@ export function useApi(endpoint, options = {}) {
     if (optionsRef.current.skip) return;
     
     const abortController = new AbortController();
+    abortControllerRef.current = abortController;
     fetchData(abortController.signal);
     
     // Cleanup: abort request when component unmounts or endpoint changes
@@ -82,7 +103,12 @@ export function useApi(endpoint, options = {}) {
 
   // Refetch function for manual refresh
   const refetch = useCallback(() => {
+    // Cancel any pending request
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
     const abortController = new AbortController();
+    abortControllerRef.current = abortController;
     fetchData(abortController.signal);
   }, [fetchData]);
 
