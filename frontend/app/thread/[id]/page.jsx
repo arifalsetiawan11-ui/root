@@ -15,8 +15,12 @@ export default function ThreadDetailPage() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [isAuthed, setIsAuthed] = useState(false);
 
-  const isAuthed = typeof window !== "undefined" ? !!localStorage.getItem("token") : false;
+  // Check auth status on client mount
+  useEffect(() => {
+    setIsAuthed(!!localStorage.getItem("token"));
+  }, []);
 
   useEffect(() => {
     if (!isAuthed) {

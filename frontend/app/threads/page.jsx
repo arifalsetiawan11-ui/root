@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { getApiBase } from "@/lib/api";
 import MarkdownEditor from "@/components/ui/MarkdownEditor";
@@ -8,8 +8,15 @@ import MarkdownPreview from "@/components/ui/MarkdownPreview";
 
 export default function MyThreadsPage() {
   const API = `${getApiBase()}/api`;
-  const authed = useMemo(() => {
-    try { return !!localStorage.getItem("token"); } catch { return false; }
+  const [authed, setAuthed] = useState(false);
+
+  // Check auth status on client mount
+  useEffect(() => {
+    try {
+      setAuthed(!!localStorage.getItem("token"));
+    } catch {
+      setAuthed(false);
+    }
   }, []);
 
   const [loading, setLoading] = useState(true);

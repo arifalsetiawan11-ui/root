@@ -41,7 +41,10 @@ export default function Sidebar({ open, onClose }) {
         <div className="sticky top-0 z-10 space-y-3 border-b border-[rgb(var(--border))] bg-[rgb(var(--surface))] px-6 pb-4 pt-5">
           <div className="flex items-center justify-between">
             <Link href="/" onClick={onClose} className="flex items-center gap-2">
+              {/* SVG logos with dark mode - using <img> is appropriate for SVGs */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/logo/logo-icon-only.svg" alt="Alephdraad" className="h-8 w-8 dark:hidden" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/logo/logo-icon-only-dark.svg" alt="Alephdraad" className="hidden h-8 w-8 dark:block" />
             </Link>
             <button
