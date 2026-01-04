@@ -1,7 +1,7 @@
 /**
  * Custom hooks for API calls with consistent error handling
  */
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { getApiBase } from "./api";
 import { getToken } from "./auth";
 import logger from "./logger";
@@ -10,16 +10,26 @@ import logger from "./logger";
  * Hook for making authenticated API requests
  * @param {string} endpoint - API endpoint (e.g., "/api/wallet/balance")
  * @param {object} options - Fetch options
+ * @param {boolean} options.skip - Skip initial fetch
+ * @param {boolean} options.requireAuth - Require auth token (default: true)
+ * @param {object} options.headers - Additional headers
  * @returns {{ data, loading, error, refetch }}
  */
 export function useApi(endpoint, options = {}) {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!options.skip);
   const [error, setError] = useState(null);
+  
+  // Use ref to store options to avoid dependency issues
+  // This allows us to always access the latest options without causing re-renders
+  const optionsRef = useRef(options);
+  optionsRef.current = options;
 
-  const fetchData = useCallback(async () => {
+  const fetchData = useCallback(async (signal) => {
+    const opts = optionsRef.current;
     const token = getToken();
-    if (!token && options.requireAuth !== false) {
+    
+    if (!token && opts.requireAuth !== false) {
       setError("Unauthorized");
       setLoading(false);
       return;
@@ -30,12 +40,13 @@ export function useApi(endpoint, options = {}) {
 
     try {
       const res = await fetch(`${getApiBase()}${endpoint}`, {
+        signal, // AbortController signal for cancellation
         headers: {
           "Content-Type": "application/json",
           ...(token && { Authorization: `Bearer ${token}` }),
-          ...options.headers,
+          ...opts.headers,
         },
-        ...options,
+        ...opts,
       });
 
       if (!res.ok) {
@@ -46,19 +57,36 @@ export function useApi(endpoint, options = {}) {
       const result = await res.json();
       setData(result);
     } catch (err) {
+      // Don't set error if request was aborted (component unmounted or deps changed)
+      if (err.name === 'AbortError') {
+        return;
+      }
       logger.error(`API Error [${endpoint}]:`, err.message);
       setError(err.message);
     } finally {
       setLoading(false);
     }
-  }, [endpoint, options]);
+  }, [endpoint]); // Only endpoint as dependency - options accessed via ref
 
   useEffect(() => {
-    if (options.skip) return;
-    fetchData();
-  }, [fetchData, options.skip]);
+    if (optionsRef.current.skip) return;
+    
+    const abortController = new AbortController();
+    fetchData(abortController.signal);
+    
+    // Cleanup: abort request when component unmounts or endpoint changes
+    return () => {
+      abortController.abort();
+    };
+  }, [fetchData]);
 
-  return { data, loading, error, refetch: fetchData };
+  // Refetch function for manual refresh
+  const refetch = useCallback(() => {
+    const abortController = new AbortController();
+    fetchData(abortController.signal);
+  }, [fetchData]);
+
+  return { data, loading, error, refetch };
 }
 
 /**
