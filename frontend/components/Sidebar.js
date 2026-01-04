@@ -41,8 +41,8 @@ export default function Sidebar({ open, onClose }) {
         <div className="sticky top-0 z-10 space-y-3 border-b border-[rgb(var(--border))] bg-[rgb(var(--surface))] px-6 pb-4 pt-5">
           <div className="flex items-center justify-between">
             <Link href="/" onClick={onClose} className="flex items-center gap-2">
-              <img src="/logo/logo-icon-only.svg" alt="Alephdraad" className="h-8 w-8 dark:hidden" />
-              <img src="/logo/logo-icon-only-dark.svg" alt="Alephdraad" className="hidden h-8 w-8 dark:block" />
+              <img src="/logo/logo-light.svg" alt="Alephdraad" className="h-8 w-8 dark:hidden" />
+              <img src="/logo/logo-dark.svg" alt="Alephdraad" className="hidden h-8 w-8 dark:block" />
             </Link>
             <button
               className="rounded-md p-1 text-[rgb(var(--fg))] hover:bg-[rgb(var(--surface-2))] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgb(var(--brand))]"
