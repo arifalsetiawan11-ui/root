@@ -46,8 +46,11 @@ export function useApi(endpoint, options = {}) {
       return;
     }
 
-    setLoading(true);
-    setError(null);
+    // Check again before setting initial state
+    if (!signal?.aborted) {
+      setLoading(true);
+      setError(null);
+    }
 
     try {
       const res = await fetch(`${getApiBase()}${endpoint}`, {
