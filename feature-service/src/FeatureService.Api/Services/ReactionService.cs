@@ -26,7 +26,7 @@ public class ReactionService : IReactionService
 
     public async Task<ReactionResponse> AddOrUpdateReactionAsync(string targetType, string targetId, CreateReactionRequest request, UserContext user)
     {
-        var reactionType = request.ReactionType.ToLower();
+        var reactionType = request.ReactionType.ToLowerInvariant();
 
         // Check if user already has a reaction on this target
         var existingReaction = await _reactions.Find(r =>

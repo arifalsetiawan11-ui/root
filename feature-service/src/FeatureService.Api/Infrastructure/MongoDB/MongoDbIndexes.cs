@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 using FeatureService.Api.Models.Entities;
+using Serilog;
 
 namespace FeatureService.Api.Infrastructure.MongoDB;
 
@@ -37,7 +38,7 @@ public static class MongoDbIndexes
         catch (Exception ex)
         {
             // Log but don't fail startup if MongoDB is not available yet
-            Console.WriteLine($"Warning: Failed to create MongoDB indexes: {ex.Message}");
+            Log.Warning(ex, "Failed to create MongoDB indexes");
         }
     }
 }
