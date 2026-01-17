@@ -1,0 +1,29 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "MongoDB": {
+    "ConnectionString": "mongodb://featureservice:Pqruaodncbsbalsaqpfnsmakamxbx518@localhost:27017/FeatureServiceDb?authSource=FeatureServiceDb",
+    "DatabaseName": "FeatureServiceDb"
+  },
+  "Jwt": {
+    "Secret": "5esD0IIOE8SkYBZG7I74Ad6f4wTEdw1Yz8dc6S5UB5jrcGoao/VLZaWNxOEXHJxK",
+    "Issuer": "api.alephdraad.fun",
+    "Audience": "alephdraad-clients",
+    "AdminSecret": "Kwiwiwjswi92iwjdhd2jejjdj2dbbdBJwi292929"
+  },
+  "Cors": {
+    "AllowedOrigins": [
+      "https://alephdraad.fun",
+      "https://www.alephdraad.fun",
+      "http://localhost:3000"
+    ]
+  },
+  "HuggingFace": {
+    "ModelUrl": "https://api-inference.huggingface.co/models/meta-llama/Llama-3.2-3B-Instruct"
+  }
+}
